@@ -34,3 +34,24 @@
      ```
 
 
+5. **Use Amazon S3 for Large Deployments
+
+If your deployment package is still too large even after optimization, you can upload the package to an S3 bucket and then deploy your Lambda function from there:
+
+- **Upload to S3**:
+  
+  ```bash
+  aws s3 cp function.zip s3://my-bucket/
+  ```
+
+- **Update Function Code from S3**:
+
+  ```bash
+  aws lambda update-function-code \
+      --function-name MyPythonFunction \
+      --s3-bucket my-bucket \
+      --s3-key function.zip
+  ```
+
+This method allows deployment packages up to 250 MB.
+
