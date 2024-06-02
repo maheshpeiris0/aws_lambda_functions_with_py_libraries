@@ -1,15 +1,13 @@
-# Use the official Python image as the base image
-FROM python:3.10
+FROM python:3.12 as build-image
 
-# Set the working directory in the container
-WORKDIR /app
+# Copy requirements.txt
+COPY requirements.txt ${LAMBDA_TASK_ROOT}
 
-# Copy the requirements file into the container and install dependencies
-COPY requirements.txt requirements.txt
+# Install the specified packages
 RUN pip install -r requirements.txt
 
-# Copy the rest of the application code into the container
-COPY . .
+# Copy function code
+COPY lambda_function.py ${LAMBDA_TASK_ROOT}
 
-# Define the command to run your Flask app
-CMD ["python", "app.py"]
+# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
+CMD [ "lambda_function.handler" ]
