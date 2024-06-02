@@ -3,12 +3,12 @@ import boto3
 import pandas as pd
 from io import StringIO
 
-def lambda_handler(event, context):
+def handler(event, context):
     # Initialize a session using Amazon S3
     s3 = boto3.client('s3')
 
     # Replace 'your_bucket_name' and 'your_file_key' with your S3 bucket name and file key
-    bucket_name = 'aa-glue-files-mp'
+    bucket_name = 'bucket-name'
     file_key = 'employees_data.csv'  # Adjust the file extension if it's different
 
     try:
